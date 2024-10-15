@@ -2,7 +2,8 @@
   "name": "patterns-2024-tasks",
   "version": "1.0.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "unit1:task1:class": "node ./Unit1/Task1/soc-opt-class.js"
   },
   "author": "Serhii Moskovko",
   "license": "MIT",
