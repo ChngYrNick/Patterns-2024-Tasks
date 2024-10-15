@@ -13,7 +13,7 @@ const data = `city,population,area,density,country
   Bangkok,8280925,1569,5279,Thailand`;
 
 class CSV {
-    static DEFAULT_OPTIONS = { headers: true, eol: '\n', seprator: ',' };
+    static DEFAULT_OPTIONS = { headers: true, eol: '\n', separator: ',' };
 
     constructor(csv = '', options = CSV.DEFAULT_OPTIONS) {
         this.csv = csv;
@@ -22,7 +22,7 @@ class CSV {
 
     #makeTable() {
         const lines = this.csv.split(this.options.eol);
-        return lines.map((line) => line.split(this.options.seprator));
+        return lines.map((line) => line.split(this.options.separator));
     }
 
     static #createRecord(headers, row) {
@@ -40,8 +40,8 @@ class CSV {
         return this.options.headers ? CSV.#withHeaders(table) : table;
     }
 
-    static from(csv, options) {
-        return new CSV(csv, Object.assign(options || {}, CSV.DEFAULT_OPTIONS));
+    static from(csv, options = {}) {
+        return new CSV(csv, { ...CSV.DEFAULT_OPTIONS, ...options });
     }
 }
 
@@ -127,6 +127,8 @@ class RegionCollectionView {
         return new RegionCollectionView(collection);
     }
 }
+
+module.exports = { CSV, Region, RegionCollection, RegionCollectionView };
 
 const collection = RegionCollection.from(CSV.from(data).parse());
 collection.pop();
