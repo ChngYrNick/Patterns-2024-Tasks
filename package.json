@@ -2,8 +2,11 @@
   "name": "patterns-2024-tasks",
   "version": "1.0.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "unit1:task1:class": "node ./Unit1/Task1/soc-opt-class.js"
+    "test": "npm run lint && node --test",
+    "lint": "eslint . && prettier -c \"**/*.js\"",
+    "fmt": "prettier --write \"**/*.js\" \"**/*.ts\"",
+    "unit1:task1:class": "node ./Unit1/Task1/soc-opt-class.js",
+    "test:unit1:task1:class": "npm run lint && node --test ./Unit1/Task1"
   },
   "author": "Serhii Moskovko",
   "license": "MIT",
