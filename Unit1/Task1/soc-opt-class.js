@@ -111,19 +111,26 @@ class RegionCollectionView {
         this.collection = collection;
     }
 
-    #composeLine(region, options) {
-        const { city, population, area, density, country } = region;
-        const fragments = [
+    static #makeDefaultFragments({ city, population, area, density, country }) {
+        return [
             city.padEnd(18),
             population.toString().padStart(10),
             area.toString().padStart(8),
             density.toString().padStart(8),
             country.padStart(18),
         ];
+    }
+
+    #makeRelativeDensityFragment(region) {
+        const maxDensity = this.collection.maxDensity();
+        const relativeDensity = region.densityRelativeTo(maxDensity);
+        return relativeDensity.toString().padStart(6);
+    }
+
+    #composeLine(region, options) {
+        const fragments = RegionCollectionView.#makeDefaultFragments(region);
         if (options.relativeDensity) {
-            const maxDensity = this.collection.maxDensity();
-            const density = region.densityRelativeTo(maxDensity);
-            fragments.push(density.toString().padStart(6));
+            fragments.push(this.#makeRelativeDensityFragment(region));
         }
         return fragments.join('');
     }
